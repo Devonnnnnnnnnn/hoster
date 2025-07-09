@@ -15,7 +15,7 @@ app.listen(3000, () => {
       .then(res => console.log("✅ Pinged bot:", res.status))
       .catch(err => console.error("❌ Failed to ping bot:", err));
 
-    fetch("https://gold-lucky-index.glitch.me/") // Self-ping
+    fetch("https://devonnnnnnnnnn.github.io/hoster/") // Self-ping
       .then(res => console.log("✅ Self-pinged:", res.status))
       .catch(err => console.error("❌ Failed self-ping:", err));
   }, 270000); // 4.5 minutes
