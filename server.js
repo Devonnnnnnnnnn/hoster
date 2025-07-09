@@ -11,7 +11,7 @@ app.listen(3000, () => {
   setInterval(() => {
     console.log("🔁 Sending pings...");
 
-    fetch("https://almond-steady-spaghetti.glitch.me/") // Replace with your bot's URL
+    fetch("https://devonnnnnnnnnn.github.io/alex/") // Replace with your bot's URL
       .then(res => console.log("✅ Pinged bot:", res.status))
       .catch(err => console.error("❌ Failed to ping bot:", err));
 
