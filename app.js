@@ -13,14 +13,15 @@ let currentUser = null;
 
 // Anonymous Authentication
 async function authenticate() {
-    // Start a session for the anonymous user
-    const { user, error } = await supabase.auth.signInWithOAuth({
-        provider: 'anonymous',
+    // Start an anonymous session for the user
+    const { user, error } = await supabase.auth.signUp({
+        email: `anon_${Math.random().toString(36).substr(2, 9)}@example.com`,
+        password: 'anon-password', // Random password
     });
 
     if (user) {
         currentUser = user;
-        loadMessages();
+        loadMessages();  // Load existing messages
     } else {
         alert('Error: ' + error.message);
     }
@@ -31,10 +32,10 @@ async function loadMessages() {
     const { data, error } = await supabase
         .from('messages')
         .select('*')
-        .order('timestamp', { ascending: true });
+        .order('created_at', { ascending: true }); // Changed to created_at
 
     if (data) {
-        messagesDiv.innerHTML = '';
+        messagesDiv.innerHTML = ''; // Clear existing messages
         data.forEach(msg => {
             const messageDiv = document.createElement('div');
             messageDiv.textContent = `${msg.sender_id}: ${msg.message_text}`;
@@ -56,23 +57,21 @@ async function loadMessages() {
 
 // Send a message
 async function sendMessage() {
-    const messageText = messageInput.value;
-    if (messageText.trim() === '') return;
+    const messageText = messageInput.value.trim();
+    if (messageText === '') return; // Prevent sending empty messages
 
     // Insert message into Supabase
     const { error } = await supabase
         .from('messages')
-        .insert([
-            {
-                sender_id: currentUser.id, // Anonymous user ID
-                message_text: messageText
-            }
-        ]);
+        .insert([{
+            sender_id: currentUser.id, // Anonymous user ID
+            message_text: messageText
+        }]);
 
     if (error) {
         alert('Error sending message: ' + error.message);
     } else {
-        messageInput.value = '';
+        messageInput.value = '';  // Clear the input after sending
     }
 }
 
