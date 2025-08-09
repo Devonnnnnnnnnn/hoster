@@ -2,7 +2,6 @@
   "name": "anonymous-chat-app",
   "version": "1.0.0",
   "description": "A simple anonymous real-time chat app using Supabase",
-  "main": "index.html",
   "scripts": {
     "start": "parcel index.html",
     "build": "parcel build index.html"
